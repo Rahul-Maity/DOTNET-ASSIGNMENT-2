@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DOTNET_ASSIGNMENT_2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240322163813_initial")]
-    partial class initial
+    [Migration("20240322175345_configure")]
+    partial class configure
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace DOTNET_ASSIGNMENT_2.Migrations
 
                     b.Property<string>("Dept_Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Dept_Id");
 
@@ -57,7 +58,8 @@ namespace DOTNET_ASSIGNMENT_2.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.Property<int>("Salary")
                         .HasColumnType("integer");
@@ -74,7 +76,7 @@ namespace DOTNET_ASSIGNMENT_2.Migrations
                     b.HasOne("DOTNET_ASSIGNMENT_2.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("Dept_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Department");

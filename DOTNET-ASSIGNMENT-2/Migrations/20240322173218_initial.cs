@@ -43,7 +43,7 @@ namespace DOTNET_ASSIGNMENT_2.Migrations
                         column: x => x.Dept_Id,
                         principalTable: "Departments",
                         principalColumn: "Dept_Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

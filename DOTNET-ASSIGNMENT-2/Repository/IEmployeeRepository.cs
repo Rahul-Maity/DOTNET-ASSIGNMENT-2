@@ -14,6 +14,7 @@ namespace DOTNET_ASSIGNMENT_2.Repository
 
         Employee GetEmployeeById(int id);
 
-        List<Employee> GetAllEmployees();
+        //List<Employee> GetAllEmployees();
+        IEnumerable<Employee> GetAllEmployees();
     }
 }

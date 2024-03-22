@@ -18,7 +18,7 @@ namespace DOTNET_ASSIGNMENT_2.Data
                  .HasOne(e => e.Department)
                  .WithMany()
                  .HasForeignKey(e => e.Dept_Id)
-                 .IsRequired();
+                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

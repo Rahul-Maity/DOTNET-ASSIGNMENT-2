@@ -2,6 +2,7 @@
 using DOTNET_ASSIGNMENT_2.Data;
 using DOTNET_ASSIGNMENT_2.Dtos;
 using DOTNET_ASSIGNMENT_2.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace DOTNET_ASSIGNMENT_2.Repository
@@ -9,25 +10,20 @@ namespace DOTNET_ASSIGNMENT_2.Repository
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;   
         
-        public EmployeeRepository(AppDbContext context)
+        public EmployeeRepository(AppDbContext context,IMapper mapper)
         {
             _context = context;
-           
+            _mapper = mapper;
         }
         public void AddEmployee(EmployeeDto employeedto)
         {
-           var Employee=new Employee
-           {
-               Id = employeedto.Id,
-               Name = employeedto.Name,
-               Age = employeedto.Age,
-               Dept_Id=employeedto.Dept_Id,
-               Salary=employeedto.Salary
+            var employee = _mapper.Map<Employee>(employeedto);
+             _context.Employees.AddAsync(employee);
+            _context.SaveChangesAsync();
 
-           };
-            _context.Employees.Add(Employee);
-            _context.SaveChanges();
+          
         }
 
         public void DeleteEmployee(int id)
@@ -54,7 +50,7 @@ namespace DOTNET_ASSIGNMENT_2.Repository
             }
         }
 
-        public List<Employee> GetAllEmployees()
+        public IEnumerable<Employee> GetAllEmployees()
         {
             return _context.Employees.ToList();
         }

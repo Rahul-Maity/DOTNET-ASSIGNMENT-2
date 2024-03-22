@@ -1,4 +1,5 @@
 using DOTNET_ASSIGNMENT_2.Data;
+using DOTNET_ASSIGNMENT_2.Mapper;
 using DOTNET_ASSIGNMENT_2.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 
 var app = builder.Build();
